@@ -42,6 +42,7 @@ from .tuners import (
     LoHaModel,
     LoraModel,
     MultitaskPromptEmbedding,
+    CoregPromptEmbedding,
     PrefixEncoder,
     PromptEmbedding,
     PromptEncoder,
@@ -327,6 +328,8 @@ class PeftModel(PushToHubMixin, torch.nn.Module):
             prompt_encoder = PromptEncoder(config)
         elif config.peft_type == PeftType.PREFIX_TUNING:
             prompt_encoder = PrefixEncoder(config)
+        elif config.peft_type == PeftType.COREG_PROMPT_TUNING:
+            prompt_encoder = CoregPromptEmbedding(config)
         else:
             raise ValueError("Not supported")
 

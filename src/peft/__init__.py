@@ -17,7 +17,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__version__ = "0.6.0.dev0"
+__version__ = "0.6.0.dev1"
 
 from .auto import (
     AutoPeftModel,
@@ -65,6 +65,8 @@ from .tuners import (
     PromptTuningInit,
     MultitaskPromptTuningConfig,
     MultitaskPromptTuningInit,
+    CoregPromptTuningConfig,
+    CoregPromptTuningInit,
 )
 from .utils import (
     TRANSFORMERS_MODELS_TO_PREFIX_TUNING_POSTPROCESS_MAPPING,

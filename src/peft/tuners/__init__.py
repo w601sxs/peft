@@ -26,6 +26,7 @@ from .p_tuning import PromptEncoder, PromptEncoderConfig, PromptEncoderReparamet
 from .prefix_tuning import PrefixEncoder, PrefixTuningConfig
 from .prompt_tuning import PromptEmbedding, PromptTuningConfig, PromptTuningInit
 from .multitask_prompt_tuning import MultitaskPromptEmbedding, MultitaskPromptTuningConfig, MultitaskPromptTuningInit
+from .coreg_tuning import CoregPromptEmbedding, CoregPromptTuningConfig, CoregPromptTuningInit
 
 # Mapping of tuners that support direct plugging
 TUNERS_MAPPING = {

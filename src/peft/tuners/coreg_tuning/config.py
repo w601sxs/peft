@@ -51,6 +51,8 @@ class CoregPromptTuningConfig(PromptLearningConfig):
     prompt_tuning_init_task: Optional[int] = field(default=0, metadata={"help": "source task id for initialization"})
     attention_dim: Optional[int] = field(default=1024, metadata={"help": "attention dim for square K Q V matrices"})
     num_views: Optional[int] = field(default=2, metadata={"help": "number of views"})
+    decorrelate: Optional[bool] = field(default=False, metadata={"help": "Whether to decorrelate attention output"})
+    decorrelate_lambda: Optional[float] = field(default=0.2, metadata={"help": "How much to decorrelate attention output"})
 
     def __post_init__(self):
         self.peft_type = PeftType.COREG_PROMPT_TUNING

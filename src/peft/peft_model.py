@@ -987,7 +987,6 @@ class PeftModelForCausalLM(PeftModel):
                 "return_dict": return_dict,
             }
         )
-
         if peft_config.peft_type == PeftType.PREFIX_TUNING:
             past_key_values = self.get_prompt(batch_size)
             return self.base_model(
@@ -996,13 +995,20 @@ class PeftModelForCausalLM(PeftModel):
         else:
             if inputs_embeds is None:
                 inputs_embeds = self.word_embeddings(input_ids)
+                
+            
+            #print('I SHAPE: ',inputs_embeds.shape)
             # concat prompt labels
             if labels is not None:
                 prefix_labels = torch.full((batch_size, peft_config.num_virtual_tokens), -100).to(labels.device)
                 kwargs["labels"] = torch.cat((prefix_labels, labels), dim=1)
             prompts = self.get_prompt(batch_size=batch_size, task_ids=task_ids)
             prompts = prompts.to(inputs_embeds.dtype)
-            inputs_embeds = torch.cat((prompts, inputs_embeds), dim=1)
+            #print('SHAPE: ',prompts.shape,inputs_embeds.shape)
+            if prompts.shape[0] != inputs_embeds.shape[0]:
+                inputs_embeds = torch.cat((prompts[:inputs_embeds.shape[0]], inputs_embeds), dim=1)
+            else:
+                inputs_embeds = torch.cat((prompts, inputs_embeds), dim=1)
             return self.base_model(inputs_embeds=inputs_embeds, **kwargs)
 
     def generate(self, **kwargs):
